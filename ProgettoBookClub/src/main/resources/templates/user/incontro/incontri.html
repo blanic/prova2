@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/base.html :: headerfiles(title=#{pageTitle.nome})">
+<meta charset="UTF-8">
+<link rel="stylesheet" href="/css/my-style.css">
+<style>
+body {font-family: "Times New Roman", Georgia, Serif;}
+</style>
+</head>
+
+<body>
+
+<header th:replace="fragments/base.html :: menuUser"></header>
+
+    <div class="elenco" id="elencoChefAdmin">
+    <div class="elencoText">
+      <h1 class="titoloElenco">I prossimi incontri</h1>
+     <div class=corpoElenco>
+      <div th:each="incontro : ${incontri}"> 
+      <h4> <a href="user/incontro/incontro.html" th:href="@{'/user/incontro'+'/'+${incontro.id}}"
+        th:text="${incontro.nome}">nome incontro</a> </h4>
+      </div>
+    </div>
+    </div>
+    <div class="immagineChef">
+      <img src="/images/libri.jpg" class="img" height="90%">
+    </div>
+  </div>
+    <footer th:replace="fragments/base.html :: footer"></footer>
+</body>
+</html>

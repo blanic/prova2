@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="fragments/base.html :: headerfiles(title=#{pageTitle.nome})">
+	<meta charset="UTF-8">
+	<link rel="stylesheet" href="/css/my-style.css">
+	<style>
+		body {
+			font-family: "Times New Roman", Georgia, Serif;
+		}
+	</style>
+</head>
+
+<body>
+
+	<header th:replace="fragments/base.html :: menuAdmin"></header>
+
+	<div class="elenco" id="elencoBuffetAdmin">
+		<div class="elencoText">
+			<h1 class="titoloElenco">I libri</h1>
+			<div class=corpoElenco>
+				<div th:each="libro : ${libri}">
+					<h4> <a href="admin/libro/libro.html" th:href="@{'/admin/libro'+'/'+${libro.id}}"
+							th:text="${libro.titolo}">titolo</a> </h4>
+
+					<form th:action="@{'/admin/toDeleteLibro'+'/'+${libro.id}}" method="POST">
+						<span><button class="deleteButton" type="submit">cancella</button></span>
+					</form>
+					<form th:action="@{'/admin/incontroForm'+'/'+${libro.id}}" method="POST">
+					<span><button class="addButton" type="submit">Inserisci un nuovo incontro</button></span>
+				</form>
+				</div>
+				<form th:action="@{/admin/libroForm}" method="POST">
+					<span><button class="addButton" type="submit">Inserisci un nuovo libro</button></span>
+				</form>
+				
+			</div>
+		</div>
+		<div class="immagineBuffet">
+			<img src="/images/libri.jpg" class="img" height="90%">
+		</div>
+	</div>
+	<footer th:replace="fragments/base.html :: footer"></footer>
+</body>
+
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="fragments/base.html :: headerfiles(title=#{pageTitle.nome})">
+	<meta charset="UTF-8">
+	<link rel="stylesheet" href="/css/my-style.css">
+	<style>
+		body {
+			font-family: "Times New Roman", Georgia, Serif;
+		}
+	</style>
+</head>
+
+<body>
+
+	<header th:replace="fragments/base.html :: menuUser"></header>
+
+	<div class="scheda" id="schedaBuffetAdmin">
+		<div class="schedaText">
+			<h1 class="titoloScheda" th:text="${utente.nome}+' '+${utente.cognome}">nome e cognome</h1>
+			<h4 th:text="${utente.presentazione}">presentazione</h4>
+
+			<div class=corpoElenco>
+				<h3>Le recensioni:</h3>
+				<div th:each="recensione : ${recensioni}">
+					<a href="user/recensione/recensione.html" th:href="@{'/user/recensione'+'/'+${recensione.id}}"
+						th:text="${recensione.titolo}"> nome e cognome </a>
+				</div>
+			</div>
+			<div class=corpoElenco>
+				<h3>I tuoi prossimi incontri:</h3>
+				<div th:each="incontro : ${prossimiIncontri}">
+					<a href="user/incontro/incontro.html" th:href="@{'/user/incontro'+'/'+${incontro.id}}"
+						th:text="${incontro.nome}"> nome incontro </a>
+						<form th:action="@{'/user/toDeletePartecipazione'+'/'+${incontro.id}}" method="GET">
+					<div>
+						<button class="deleteButton" type="submit">Rimuovi</button>
+					</div>
+				</form>
+				</div>
+			</div>
+		</div>
+		<div class="immagineChef">
+			<img src="/images/libri.jpg" class="img" height="90%">
+		</div>
+	</div>
+	<footer th:replace="fragments/base.html :: footer"></footer>
+</body>
+
+</html>

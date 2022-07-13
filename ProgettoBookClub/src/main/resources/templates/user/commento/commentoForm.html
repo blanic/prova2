@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="fragments/base.html :: headerfiles(title=#{pageTitle.nome})">
+	<meta charset="UTF-8">
+	<link rel="stylesheet" href="/css/my-style.css">
+	<style>
+		body {
+			font-family: "Times New Roman", Georgia, Serif;
+		}
+	</style>
+</head>
+
+<body>
+
+	<header th:replace="fragments/base.html :: menuUser"></header>
+
+	<div class="form" id="formBuffetAdmin">
+		<div class="formText">
+			<h1 class="titoloForm">Inserisci un nuovo libro</h1>
+			<div class=corpoForm>
+				
+			</div>
+		</div>
+		<div class="immagineBuffet">
+			<img src="/images/libri.jpg" class="img" height="90%">
+		</div>
+	</div>
+	<footer th:replace="fragments/base.html :: footer"></footer>
+</body>
+
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="fragments/base.html :: headerfiles(title=#{pageTitle.nome})">
+	<meta charset="UTF-8">
+	<link rel="stylesheet" href="/css/my-style.css">
+	<style>
+		body {
+			font-family: "Times New Roman", Georgia, Serif;
+		}
+	</style>
+</head>
+
+<body>
+
+	<header th:replace="fragments/base.html :: menuAdmin"></header>
+
+	<div class="scheda" id="schedaBuffetAdmin">
+		<div class="schedaText">
+			<h1 class="titoloScheda" th:text="${recensione.titolo}">nome</h1>
+			<h4 th:text="${recensione.testo}">descrizione</h4>
+			<p th:text="${recensione.dataOrario}">anno</p>
+
+			<div>
+				Autore:<a href="admin/utente/utente.html" th:href="@{'/admin/utente'+'/'+${autore.id}}"
+					th:text="${autore.nome}+' '+${autore.cognome}"> nome e cognome </a>
+			</div>
+			<div>
+				Libro: <a href="admin/libro/libro.html" th:href="@{'/admin/libro'+'/'+${libro.id}}"
+					th:text="${libro.titolo}"> titolo </a>
+			</div>
+			<div class=corpoElenco>
+				<h3>I commenti:</h3>
+				<div th:each="commento : ${commenti}">
+					<p th:text="${commento.user.username}">nome autore </p>
+					<p th:text="${commento.testo}">testo commento </p>
+					<p th:text="${commento.dataOrario}"> data </p>
+					<form th:action="@{'/admin/deleteCommento'+'/'+${commento.id}}" method="GET">
+						<span><button class="removeButton" type="cancella">cancella</button></span>
+					</form>
+				</div>
+			</div>
+		</div>
+		<div class="immagineChef">
+			<img src="/images/libri.jpg" class="img" height="90%">
+		</div>
+	</div>
+	<footer th:replace="fragments/base.html :: footer"></footer>
+</body>
+
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="fragments/base.html :: headerfiles(title=#{pageTitle.nome})">
+	<meta charset="UTF-8">
+	<link rel="stylesheet" href="/css/my-style.css">
+	<style>
+		body {
+			font-family: "Times New Roman", Georgia, Serif;
+		}
+	</style>
+</head>
+
+<body>
+
+	<header th:replace="fragments/base.html :: menuAdmin"></header>
+
+	<div class="scheda" id="schedaBuffetAdmin">
+		<div class="schedaText">
+			<h1 class="titoloScheda" th:text="${libro.titolo}">nome</h1>
+			<h4 th:text="${libro.descrizione}">descrizione</h4>
+			<p th:text="${libro.anno}">anno</p>
+
+			<div th:if="${autore}" th:object="${autore}">
+				Autore: <a href="admin/autore/autore.html" th:href="@{'/admin/autore'+'/'+${autore.id}}"
+					th:text="${autore.nome}+' '+${autore.cognome}">nome e cognome </a>
+			</div>
+			<div th:unless="${autore}">Autore non noto </form>
+				<form th:action="@{'/admin/toSetAutore'+'/'+${libro.id}}" method="GET">
+					<span><button class="addButton" type="submit">seleziona autore</button></span>
+				</form>
+			</div>
+			<div class=corpoElenco>
+				<h3>Gli incontri:</h3>
+				<div th:each="incontro : ${incontri}">
+					<p> <a href="admin/incontro/incontro.html" th:href="@{'/admin/incontro'+'/'+${incontro.id}}"
+							th:text="${incontro.nome}">nome piatto</a> </p>
+					<p th:text="${incontro.data}"> data incontro </p>
+				</div>
+			</div>
+			<div class=corpoElenco>
+				<h3> Le recensioni:</h3>
+				<div th:each="recensione : ${recensioni}">
+					<p> <a href="admin/recensione/recensione.html" th:href="@{'/admin/recensione'+'/'+${recensione.id}}"
+							th:text="${recensione.titolo}">titolo recensione</a> </p>
+					<form th:action="@{'/admin/toDeleteRecensione'+'/'+${recensione.id}}" method="POST">
+						<span><button class="removeButton" type="rimuovi">rimuovi</button></span>
+					</form>
+				</div>
+			</div>
+		</div>
+		<div class="immagineChef">
+			<img src="/images/libri.jpg" class="img" height="90%">
+		</div>
+	</div>
+	<footer th:replace="fragments/base.html :: footer"></footer>
+</body>
+
+</html>

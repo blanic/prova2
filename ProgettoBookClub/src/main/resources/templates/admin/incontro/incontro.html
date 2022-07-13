@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="fragments/base.html :: headerfiles(title=#{pageTitle.nome})">
+	<meta charset="UTF-8">
+	<link rel="stylesheet" href="/css/my-style.css">
+	<style>
+		body {
+			font-family: "Times New Roman", Georgia, Serif;
+		}
+	</style>
+</head>
+
+<body>
+
+	<header th:replace="fragments/base.html :: menuAdmin"></header>
+
+	<div class="scheda" id="schedaBuffetAdmin">
+		<div class="schedaText">
+			<h1 class="titoloScheda" th:text="${incontro.nome}">nome</h1>
+			<h4 th:text="${incontro.descrizione}">descrizione</h4>
+			<p th:text="${incontro.data}">data</p>
+			<p th:text="${incontro.numeroPosti}">numero posti</p>
+
+			<div>
+				Libro: <a href="admin/libro/libro.html" th:href="@{'/admin/libro'+'/'+${libro.id}}"
+					th:text="${libro.titolo}"> titolo </a>
+			</div>
+			<div>
+				<div th:if="${moderatore}" th:object="${user}">
+					Moderatore: <a href="admin/utente/utente.html" th:href="@{'/admin/utente'+'/'+${moderatore.id}}"
+						th:text="${moderatore.nome}+' '+${moderatore.cognome}">nome e cognome </a>
+				</div>
+				<div th:unless="${moderatore}"> Nessun moderatore </form>
+					<form th:action="@{'/admin/toSetModeratore'+'/'+${incontro.id}}" method="GET">
+						<span><button class="addButton" type="submit">Seleziona moderatore</button></span>
+					</form>
+				</div>
+				<div class=corpoElenco>
+					<h3>Partecipanti: </h3>
+					<div th:each="partecipante : ${partecipanti}">
+						<p th:text="${partecipante.nome}+' '+${partecipante.cognome}">nome autore </p>
+					</div>
+					<form th:action="@{'/admin/toDeleteIncontro'+'/'+${incontro.id}}" method="GET">
+						<span><button class="deleteButton" type="cancella">cancella</button></span>
+					</form>
+				</div>
+			</div>
+			<div class="immagineChef">
+				<img src="/images/libri.jpg" class="img" height="90%">
+			</div>
+		</div>
+		<footer th:replace="fragments/base.html :: footer"></footer>
+</body>
+
+</html>

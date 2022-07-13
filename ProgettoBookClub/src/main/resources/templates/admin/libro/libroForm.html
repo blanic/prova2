@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/base.html :: headerfiles(title=#{pageTitle.nome})">
+<meta charset="UTF-8">
+<link rel="stylesheet" href="/css/my-style.css">
+<style>
+body {font-family: "Times New Roman", Georgia, Serif;}
+</style>
+</head>
+
+<body>
+
+<header th:replace="fragments/base.html :: menuAdmin"></header>
+
+    <div class="form" id="formBuffetAdmin">
+    <div class="formText">
+      <h1 class="titoloForm">Inserisci un nuovo libro</h1>
+     <div class=corpoForm>
+      <form th:action="@{/admin/creaLibro}" method="POST" th:object="${libro}">
+		<div th:if="${#fields.hasGlobalErrors()}">
+  			<p th:each="err : ${#fields.globalErrors()}" th:text="${err}">...</p>
+		</div>		
+		<div>
+			<div>
+				<span>Nome:</span>
+				<span><input type="text" th:field="*{titolo}" /></span>
+				<span th:if="${#fields.hasErrors('titolo')}" th:errors="*{titolo}"></span>
+			</div>		
+			<div>
+				<span>Descrizione:</span>
+				<span><input type="text" th:field="*{descrizione}" /></span>
+				<span th:if="${#fields.hasErrors('descrizione')}" th:errors="*{descrizione}"></span>
+			</div>
+			<div>
+				<span>Anno di pubblicazione:</span>
+				<span><input type="text" th:field="*{anno}" /></span>
+				<span th:if="${#fields.hasErrors('anno')}" th:errors="*{anno}"></span>
+			</div>
+			<div>
+				<span><button class"newButton" type="submit">Aggiungi libro</button></span>
+			</div>
+		</div>
+	</form>
+    </div>
+    </div>
+    <div class="immagineBuffet">
+      <img src="/images/libri.jpg" class="img" height="90%">
+    </div>
+  </div>
+    <footer th:replace="fragments/base.html :: footer"></footer>
+</body>
+</html>
+
+
+
+

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="fragments/base.html :: headerfiles(title=#{pageTitle.nome})">
+	<meta charset="UTF-8">
+	<link rel="stylesheet" href="/css/my-style.css">
+	<style>
+		body {
+			font-family: "Times New Roman", Georgia, Serif;
+		}
+	</style>
+</head>
+
+<body>
+
+	<header th:replace="fragments/base.html :: menuAdmin"></header>
+
+	<div class="scheda" id="schedaChefAdmin">
+		<div class="schedaText">
+			<h1 class="titoloScheda" th:text="${autore.nome}+' '+${autore.cognome}">nome e cognome</h1>
+			<h4 th:text="${autore.biografia}">biografia</h4>
+			<div class=corpoElenco>
+				<h3> Libri pubblicati:</h3>
+				<div th:each="libro : ${libri}">
+					<p> <a href="admin/libro/libro.html" th:href="@{'/admin/libro'+'/'+${libro.id}}"
+							th:text="${libro.titolo}">nome libro</a> </p>
+					<form th:action="@{'/admin/toRemoveAutore'+'/'+${autore.id}}" method="POST">
+						<span><button class="removeButton" type="rimuovi">rimuovi</button></span>
+					</form>
+				</div>
+			</div>
+		</div>
+		<div class="immagineChef">
+			<img src="/images/libri.jpg" class="img" height="90%">
+		</div>
+	</div>
+	<footer th:replace="fragments/base.html :: footer"></footer>
+</body>
+
+</html>
